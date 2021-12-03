@@ -41,7 +41,7 @@ UserSchema.pre("save", async function(next) {
     // Only hash the password if it has been modified (or is new)
     if(!user.isModified("password")) return next();
 
-    const salt = await bcrypt.genSalt(config.get("saltWorkFactor"));
+    const salt = await bcrypt.genSalt(Number(config.get("saltWorkFactor")));
 
     const hash = bcrypt.hashSync(user.password, salt);
 
